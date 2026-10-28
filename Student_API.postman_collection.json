@@ -1,0 +1,515 @@
+{
+	"info": {
+		"_postman_id": "a98c8c2c-87b6-455b-b9f1-d0b81df98db1",
+		"name": "Student Management API",
+		"description": "Postman collection for testing the Student Management REST API endpoints.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"description": "Public endpoints for registering and logging in to obtain a JWT.",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"admin@example.com\",\n    \"password\": \"password123\",\n    \"role\": \"USER\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Registers a new user and returns a JWT."
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Authenticates a user and returns a JWT."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Student",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"email\": \"john.doe@example.com\",\n    \"phone\": \"+1234567890\",\n    \"course\": \"Computer Science\",\n    \"age\": 21\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/students",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"students"
+					]
+				},
+				"description": "Creates a new student in the database. Returns the created student object with its database ID."
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Students (Paginated)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/students?page=0&size=10&sortBy=firstName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"students"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0",
+							"description": "Zero-based page index"
+						},
+						{
+							"key": "size",
+							"value": "10",
+							"description": "Size of each page"
+						},
+						{
+							"key": "sortBy",
+							"value": "firstName",
+							"description": "Field name to sort results by (e.g. firstName, lastName, age, email)"
+						}
+					]
+				},
+				"description": "Retrieves a paginated list of all students. Default page is 0, size is 10, sorted by firstName."
+			},
+			"response": []
+		},
+		{
+			"name": "Get Student by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"1"
+					]
+				},
+				"description": "Retrieves details of a specific student using their database ID."
+			},
+			"response": []
+		},
+		{
+			"name": "Search Student by Email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/students/search?email=john.doe@example.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"search"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "john.doe@example.com",
+							"description": "Exact email address of the student"
+						}
+					]
+				},
+				"description": "Search for a student using their exact email address."
+			},
+			"response": []
+		},
+		{
+			"name": "Update Student",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Smith\",\n    \"email\": \"john.smith@example.com\",\n    \"phone\": \"+1987654321\",\n    \"course\": \"Software Engineering\",\n    \"age\": 22\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"1"
+					]
+				},
+				"description": "Updates details of an existing student by ID."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Student",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/students/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"students",
+						"1"
+					]
+				},
+				"description": "Deletes a student from the database by ID."
+			},
+			"response": []
+		},
+		{
+			"name": "AI Features",
+			"description": "Folder containing pre-configured requests for the new Claude AI endpoints",
+			"item": [
+				{
+					"name": "Get Study Plan",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ai/students/1/study-plan",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ai",
+								"students",
+								"1",
+								"study-plan"
+							]
+						},
+						"description": "Generates a 3-month study plan for a specific student based on their profile data."
+					},
+					"response": []
+				},
+				{
+					"name": "Natural Language Search",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"query\": \"computer science students younger than 21\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ai/students/nl-search",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ai",
+								"students",
+								"nl-search"
+							]
+						},
+						"description": "Filter student database using natural language queries."
+					},
+					"response": []
+				},
+				{
+					"name": "Smart Analytics Insights",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ai/analytics/insights",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ai",
+								"analytics",
+								"insights"
+							]
+						},
+						"description": "Generates detailed statistics and structural narrative analysis."
+					},
+					"response": []
+				},
+				{
+					"name": "Identify At-Risk Students",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ai/students/at-risk",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ai",
+								"students",
+								"at-risk"
+							]
+						},
+						"description": "Process and audit students to check for LOW/MEDIUM/HIGH academic risks."
+					},
+					"response": []
+				},
+				{
+					"name": "Conversational Chatbot",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"How many students are in Computer Science?\",\n    \"sessionId\": \"session-abc\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ai/chat",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ai",
+								"chat"
+							]
+						},
+						"description": "Converse with an AI assistant that has real-time aggregate statistics of students."
+					},
+					"response": []
+				},
+				{
+					"name": "Generate Bulk Emails",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"studentIds\": [1, 2],\n    \"purpose\": \"Exam reminder for final semester exams next week\",\n    \"tone\": \"FRIENDLY\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ai/students/email-content",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ai",
+								"students",
+								"email-content"
+							]
+						},
+						"description": "Generate bulk personalized study and exam reminder emails in parallel (max 50)."
+					},
+					"response": []
+				},
+				{
+					"name": "Download Monthly Report PDF",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/ai/reports/monthly?month=6&year=2026",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"ai",
+								"reports",
+								"monthly"
+							],
+							"query": [
+								{
+									"key": "month",
+									"value": "6"
+								},
+								{
+									"key": "year",
+									"value": "2026"
+								}
+							]
+						},
+						"description": "Download monthly institutional summary in PDF format."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

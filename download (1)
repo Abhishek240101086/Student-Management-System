@@ -1,0 +1,36 @@
+# Java and Maven Build Artifacts
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs and runtime files
+logs/
+*.log
+
+# Sensitive Environment Configurations
+.env
+.env.local
+.env.*.local
+
+# IDE and Project Settings
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+dependency-reduced-pom.xml
+debug_log.txt
+debug.bat
+simple.bat
+kill_port_8080.bat
+start.bat
+powershell.bat
+
+# Debug and diagnostic log files
+debug_*.txt
+*.diagnostic.txt
